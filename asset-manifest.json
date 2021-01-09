@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/zahlensysteme/static/css/main.22c6979c.chunk.css",
+    "main.js": "/zahlensysteme/static/js/main.2ef2b6d5.chunk.js",
+    "main.js.map": "/zahlensysteme/static/js/main.2ef2b6d5.chunk.js.map",
+    "runtime-main.js": "/zahlensysteme/static/js/runtime-main.c1c737d6.js",
+    "runtime-main.js.map": "/zahlensysteme/static/js/runtime-main.c1c737d6.js.map",
+    "static/css/2.ae9f1eb3.chunk.css": "/zahlensysteme/static/css/2.ae9f1eb3.chunk.css",
+    "static/js/2.e522afc7.chunk.js": "/zahlensysteme/static/js/2.e522afc7.chunk.js",
+    "static/js/2.e522afc7.chunk.js.map": "/zahlensysteme/static/js/2.e522afc7.chunk.js.map",
+    "static/js/3.7fbfa55b.chunk.js": "/zahlensysteme/static/js/3.7fbfa55b.chunk.js",
+    "static/js/3.7fbfa55b.chunk.js.map": "/zahlensysteme/static/js/3.7fbfa55b.chunk.js.map",
+    "index.html": "/zahlensysteme/index.html",
+    "static/css/2.ae9f1eb3.chunk.css.map": "/zahlensysteme/static/css/2.ae9f1eb3.chunk.css.map",
+    "static/css/main.22c6979c.chunk.css.map": "/zahlensysteme/static/css/main.22c6979c.chunk.css.map",
+    "static/js/2.e522afc7.chunk.js.LICENSE.txt": "/zahlensysteme/static/js/2.e522afc7.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c1c737d6.js",
+    "static/css/2.ae9f1eb3.chunk.css",
+    "static/js/2.e522afc7.chunk.js",
+    "static/css/main.22c6979c.chunk.css",
+    "static/js/main.2ef2b6d5.chunk.js"
+  ]
+}
