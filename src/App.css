@@ -30,30 +30,75 @@
 
 .button-with-space {
   margin: 5px;
+  float: right;
 }
 
 .big-text {
   font-size: x-large;
+  background-color: white;
+  min-height: 50px;
+  line-height: 50px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: darkgray;
 }
 
 .chiffre {
-  background-color: white;
-  border-style: solid;
-  border-width: 1px;
-  width: 55px;
+  width: 40px;
   height: 50px;
   text-align: center;
-  float: right;
+  flex-flow: row;
+  flex-wrap: nowrap;
+  overflow: auto;
+  overflow-y: hidden;
+  line-height: 50px;
+  font-size: 20px;
+}
+.chiffre-white {
+  width: 40px;
+  height: 50px;
+  text-align: center;
+  background-color: black;
+  color: white;
+  line-height: 50px;
+  font-size: 20px;
+}
+
+.row-name {
+  width: 100px;
+  height: 50px;
+  text-align: center;
+  overflow-wrap: break-word;
+  margin-right: 50px;
+  width: 120px;
+}
+
+.chiffre-dec {
+  width: 40px;
+  height: 50px;
+  text-align: center;
+  margin-top: 40px;
+  font-size: 20px;
+  color: lightgrey;
+}
+
+.chiffre-placeholder {
+  width: 40px;
+  height: 50px;
+  text-align: center;
+  overflow-wrap: break-word;
+  line-height: 50px;
   overflow-wrap: break-word;
 }
 
 .sign {
-  width: 55px;
-  height: 25px;
+  width: 40px;
+  height: 50px;
   text-align: center;
-  float: right;
-  
   overflow-wrap: break-word;
+  line-height: 50px;
+  font-size: 20px;
 }
 
 .text-center{
@@ -66,4 +111,13 @@
 
 .margin-bottom {
   margin-bottom: 25px;
+}
+
+.no-stack {
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: nowrap;
+  overflow: auto;
+  overflow-y: hidden;
 }

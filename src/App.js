@@ -4,16 +4,17 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Select from 'react-select';
+import ScaleText from "react-scale-text";
 import { Button } from 'reactstrap';
 import './App.css';
 
 const conversionOptions = [
-  { label: "Dezimal     -> Binär", value: [10, 2] },
-  { label: "Binär       -> Dezimal", value: [2, 10] },
-  { label: "Dezimal     -> Oktal", value: [10, 8] },
-  { label: "Oktal       -> Dezimal", value: [8, 10] },
-  { label: "Dezimal     -> Hexadezimal", value: [10, 16] },
-  { label: "Hexadezimal -> Dezimal", value: [16, 10] },
+  { label: "Dezimal     → Binär", value: [10, 2] },
+  { label: "Binär       → Dezimal", value: [2, 10] },
+  { label: "Dezimal     → Oktal", value: [10, 8] },
+  { label: "Oktal       → Dezimal", value: [8, 10] },
+  { label: "Dezimal     → Hexadezimal", value: [10, 16] },
+  { label: "Hexadezimal → Dezimal", value: [16, 10] },
 ];
 
 
@@ -86,18 +87,6 @@ class App extends React.Component {
     document.getElementById("number-input").value = this.convert(newInput, this.state.conversionSettings[0]);
   }
 
-  divide_2 = () => {
-    let newInput = this.state.input / 2;
-    this.setState({ input: newInput, inputConverted: this.convert(newInput, this.state.conversionSettings[1]) });
-    document.getElementById("number-input").value = this.convert(newInput, this.state.conversionSettings[0]);
-  }
-
-  divide_10 = () => {
-    let newInput = this.state.input / 10;
-    this.setState({ input: newInput, inputConverted: this.convert(newInput, this.state.conversionSettings[1]) });
-    document.getElementById("number-input").value = this.convert(newInput, this.state.conversionSettings[0]);
-  }
-
   getNonDecimalNumber = () => {
     if (this.state.conversionSettings[0] === 10) {
       return [this.state.inputConverted, this.state.conversionSettings[1]];
@@ -128,18 +117,16 @@ class App extends React.Component {
                   <h4>Eingabe</h4>
                 </div>
                 <input id="number-input" className="form-control text-center big-text" type="text" disabled={this.state.inputDisabled} onChange={this.changeInputHandler} />
-                <Button color="info" className="button-with-space" onClick={this.increase}>+1</Button>
-                <Button color="info" className="button-with-space" onClick={this.decrease}>-1</Button>
-                <Button color="info" className="button-with-space" onClick={this.multiply_2}>*2</Button>
-                <Button color="info" className="button-with-space" onClick={this.multiply_10}>*10</Button>
-                <Button color="info" className="button-with-space" onClick={this.divide_2}>/2</Button>
-                <Button color="info" className="button-with-space" onClick={this.divide_10}>/10</Button>
+                <Button color="outline-success" className="button-with-space" onClick={this.multiply_10}>*10</Button>
+                <Button color="outline-success" className="button-with-space" onClick={this.multiply_2}>*2</Button>
+                <Button color="outline-success" className="button-with-space" onClick={this.decrease}>-1</Button>
+                <Button color="outline-success" className="button-with-space" onClick={this.increase}>+1</Button>
               </Col>
               <Col md={4}>
                 <div className="title-container">
                   <h4>Resultat</h4>
                 </div>
-                <div className="text-centered big-text">
+                <div id="result-box" className="text-centered big-text">
                   <b>{this.state.inputConverted}</b>
                 </div>
               </Col>
@@ -158,49 +145,138 @@ class Explanation extends React.Component {
   }
 
   chiffreValues = (number) => {
+    let radixName = "Binär";
+    if (this.props.radix == 8) {
+      radixName = "Oktal"
+    }
+    if (this.props.radix == 16) {
+      radixName = "Hexadezimal"
+    }
     let res = [];
-    for (let i = number.length - 1; i >= 0; i--) {
+    let result = 0;
+    for (let i = 0; i < number.length; i++) {
       let multiplier = Math.pow(this.props.radix, number.length - 1 - i);
       let value = parseInt(number[i], 16);
       let style = { color: "black", borderColor: "black", fontWeight: "bold" };
+      result = result + value * multiplier;
       if (value === 0) {
         style["color"] = "grey";
         style["borderColor"] = "lightgrey";
         style["fontWeight"] = "normal";
       }
-      res.push(<div className="chiffre" style={style}>{value}</div>);
-    }
-    return res;
-  }
-
-  chiffreMultipliers = (number) => {
-    let res = [];
-    for (let i = number.length - 1; i >= 0; i--) {
-      let multiplier = Math.pow(this.props.radix, number.length - 1 - i);
-      let value = parseInt(number[i], 16);
-      let style = { color: "black", borderColor: "black", fontWeight: "bold" };
-      if (value === 0) {
-        style["color"] = "grey";
-        style["borderColor"] = "lightgrey";
-        style["fontWeight"] = "normal";
+      if (this.props.radix === 16) {
+        res.push(
+          <div>
+            <div className="chiffre-white" style={{ fontWeight: "bold" }}>{number[i]}</div>
+            <div className="chiffre-dec">{value}</div>
+            <div className="sign">*</div>
+            <div className="chiffre" style={style}><ScaleText maxFontSize={20} widthOnly={true}>{multiplier}</ScaleText></div>
+            <div className="sign">=</div>
+            <div className="chiffre" style={style}><ScaleText maxFontSize={20} widthOnly={true}>{multiplier * value}</ScaleText></div>
+          </div>
+        );
+        if (number.length > 1 && i < number.length - 1) {
+          res.push(
+            <div>
+              <div className="chiffre-white" style={style}></div>
+              <div className="chiffre-dec" style={style}></div>
+              <div className="chiffre-placeholder"></div>
+              <div className="chiffre-placeholder" style={style}></div>
+              <div className="chiffre-placeholder"></div>
+              <div className="chiffre-placeholder">+</div>
+            </div>
+          );
+        }
+        if (i == number.length - 1) {
+          res.push(
+            <div>
+              <div className="chiffre-placeholder" style={style}></div>
+              <div className="chiffre-dec" style={style}></div>
+              <div className="chiffre-placeholder"></div>
+              <div className="chiffre-placeholder" style={style}></div>
+              <div className="chiffre-placeholder"></div>
+              <div className="chiffre-white">=</div>
+            </div>
+          );
+        }
+      } else {
+        res.push(
+          <div>
+            <div className="chiffre-white" style={{ fontWeight: "bold" }}>{number[i]}</div>
+            <div className="sign">*</div>
+            <div className="chiffre" style={style}><ScaleText maxFontSize={20} widthOnly={true}>{multiplier}</ScaleText></div>
+            <div className="sign">=</div>
+            <div className="chiffre" style={style}><ScaleText maxFontSize={20} widthOnly={true}>{multiplier * value}</ScaleText></div>
+          </div>
+        );
+        if (number.length > 1 && i < number.length - 1) {
+          res.push(
+            <div>
+              <div className="chiffre-white" style={style}></div>
+              <div className="chiffre-placeholder"></div>
+              <div className="chiffre-placeholder" style={style}></div>
+              <div className="chiffre-placeholder"></div>
+              <div className="chiffre-placeholder">+</div>
+            </div>
+          );
+        }
+        if (i == number.length - 1) {
+          res.push(
+            <div>
+              <div className="chiffre-placeholder" style={style}></div>
+              <div className="chiffre-placeholder"></div>
+              <div className="chiffre-placeholder" style={style}></div>
+              <div className="chiffre-placeholder"></div>
+              <div className="chiffre-white">=</div>
+            </div>
+          );
+        }
       }
-      res.push(<div className="chiffre" style={style}>{multiplier}</div>);
     }
-    return res;
-  }
+    if (this.props.radix === 16) {
+      res.unshift(
+        <div>
+          <div className="row-name"><b>Ziffernwerte ({radixName})</b></div>
+          <div className="row-name" style={{ marginTop: "40px", color: "lightgrey"}}><b>Ziffernwerte (Dezimal)</b></div>
+          <div className="row-name"></div>
+          <div className="row-name"><b>Stellenwerte (Dezimal)</b></div>
+          <div className="row-name"></div>
+          <div className="row-name"><b>Resultat (Dezimal)</b></div>
+        </div>
+      )
+      res.push(
+        <div>
+          <div className="chiffre-placeholder"></div>
+          <div className="chiffre-dec"></div>
+          <div className="chiffre-placeholder"></div>
+          <div className="chiffre-placeholder"></div>
+          <div className="chiffre-placeholder"></div>
+          <div className="chiffre-white" style={{ width: "150px" }}><ScaleText maxFontSize={20} widthOnly={true}><b>{result}</b></ScaleText></div>
+        </div>
+      )
+    } else {
+      res.unshift(
+        <div>
+          <div className="row-name"><b>Ziffernwerte ({radixName})</b></div>
+          <div className="row-name"></div>
+          <div className="row-name"><b>Stellenwerte (Dezimal)</b></div>
+          <div className="row-name"></div>
+          <div className="row-name"><b>Resultat (Dezimal)</b></div>
+        </div>
+      )
+      res.push(
+        <div>
+          <div className="chiffre-placeholder"></div>
+          <div className="chiffre-placeholder"></div>
+          <div className="chiffre-placeholder"></div>
+          <div className="chiffre-placeholder"></div>
+          <div className="chiffre-white" style={{ width: "150px" }}><ScaleText maxFontSize={20} widthOnly={true}><b>{result}</b></ScaleText></div>
+        </div>
+      )
+    }
 
-  totalValues = (number) => {
-    let res = [];
-    for (let i = number.length - 1; i >= 0; i--) {
-      let multiplier = Math.pow(this.props.radix, number.length - 1 - i);
-      let value = parseInt(number[i], 16);
-      let style = { color: "black", fontWeight: "bold" };
-      if (value === 0) {
-        style["color"] = "grey";
-        style["fontWeight"] = "normal";
-      }
-      res.push(<div className="sign" style={style}>{multiplier * value}</div>);
-    }
+
+
     return res;
   }
 
@@ -231,23 +307,6 @@ class Explanation extends React.Component {
     return (total);
   }
 
-  multiplierSigns = (number) => {
-    let res = [];
-    for (let i = number.length - 1; i >= 0; i--) {
-      let multiplier = Math.pow(this.props.radix, number.length - 1 - i);
-      res.push(<div className="sign">*</div>);
-    }
-    return res;
-  }
-
-  equalSigns = (number) => {
-    let res = [];
-    for (let i = number.length - 1; i >= 0; i--) {
-      let multiplier = Math.pow(this.props.radix, number.length - 1 - i);
-      res.push(<div className="sign">=</div>);
-    }
-    return res;
-  }
   render() {
     console.log(this.props.number, this.props.radix);
     if (this.props.number === "" || this.props.number == undefined) {
@@ -268,50 +327,10 @@ class Explanation extends React.Component {
             </Col>
           </Row>
           <Row>
-            <Col md={1}>
-              <b>Ziffernwerte</b> (Dezimal)
-            </Col>
-            <Col md={11}>
+            <div className="no-stack">
               {this.chiffreValues(this.props.number)}
-            </Col>
+            </div>
           </Row>
-          <Row>
-            <Col md={1}></Col>
-            <Col md={11}>
-              {this.multiplierSigns(this.props.number)}
-            </Col>
-          </Row>
-          <Row>
-            <Col md={1}>
-              <b>Stellenwerte</b> (Dezimal)
-            </Col>
-            <Col md={11}>
-              {this.chiffreMultipliers(this.props.number)}
-            </Col>
-          </Row>
-          <Row>
-            <Col md={1}></Col>
-            <Col md={11}>
-              {this.equalSigns(this.props.number)}
-            </Col>
-          </Row>
-          <Row>
-            <Col md={1}></Col>
-            <Col md={11}>
-              {this.totalValues(this.props.number)}
-            </Col>
-          </Row>
-          <Row>
-            <Col md={1}>
-              <div className="margin-top">
-              <b>Resultat</b>
-              </div>
-            </Col>
-            <Col md={11} className="text-center margin-top">
-              {this.result(this.props.number)}
-            </Col>
-          </Row>
-
         </Col>
       );
     }
