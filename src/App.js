@@ -6,9 +6,11 @@ import Col from 'react-bootstrap/Col';
 import Select from 'react-select';
 import ScaleText from "react-scale-text";
 import { Button } from 'reactstrap';
+import ReactTooltip from 'react-tooltip';
 import './App.css';
 
 const conversionOptions = [
+  { label: "Dezimal     → Dezimal", value: [10, 10]},
   { label: "Dezimal     → Binär", value: [10, 2] },
   { label: "Binär       → Dezimal", value: [2, 10] },
   { label: "Dezimal     → Oktal", value: [10, 8] },
@@ -170,7 +172,12 @@ class Explanation extends React.Component {
             <div className="chiffre-white" style={{ fontWeight: "bold" }}>{number[i]}</div>
             <div className="chiffre-dec">{value}</div>
             <div className="sign">*</div>
-            <div className="chiffre" style={style}><ScaleText maxFontSize={20} widthOnly={true}>{multiplier}</ScaleText></div>
+            <div className="chiffre" style={style} data-tip data-for={"tooltip_" + i}><ScaleText maxFontSize={20} widthOnly={true} >{multiplier}
+            </ScaleText>
+              <ReactTooltip id={"tooltip_" + i} place="bottom" type="success" effect="solid">
+                <p>{multiplier}={this.props.radix}<sup>{number.length -i - 1}</sup></p>
+              </ReactTooltip>
+            </div>
             <div className="sign">=</div>
             <div className="chiffre" style={style}><ScaleText maxFontSize={20} widthOnly={true}>{multiplier * value}</ScaleText></div>
           </div>
@@ -204,7 +211,12 @@ class Explanation extends React.Component {
           <div>
             <div className="chiffre-white" style={{ fontWeight: "bold" }}>{number[i]}</div>
             <div className="sign">*</div>
-            <div className="chiffre" style={style}><ScaleText maxFontSize={20} widthOnly={true}>{multiplier}</ScaleText></div>
+            <div className="chiffre" style={style} data-tip data-for={"tooltip_" + i}><ScaleText maxFontSize={20} widthOnly={true} >{multiplier}
+            </ScaleText>
+              <ReactTooltip id={"tooltip_" + i} place="bottom" type="success" effect="solid">
+                <p>{multiplier}={this.props.radix}<sup>{number.length -i - 1}</sup></p>
+              </ReactTooltip>
+            </div>
             <div className="sign">=</div>
             <div className="chiffre" style={style}><ScaleText maxFontSize={20} widthOnly={true}>{multiplier * value}</ScaleText></div>
           </div>
