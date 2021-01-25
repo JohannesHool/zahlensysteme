@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/zahlensysteme/static/css/main.ae15e2ce.chunk.css",
-    "main.js": "/zahlensysteme/static/js/main.8e480f34.chunk.js",
-    "main.js.map": "/zahlensysteme/static/js/main.8e480f34.chunk.js.map",
-    "runtime-main.js": "/zahlensysteme/static/js/runtime-main.3e79be48.js",
-    "runtime-main.js.map": "/zahlensysteme/static/js/runtime-main.3e79be48.js.map",
+    "main.js": "/zahlensysteme/static/js/main.60187dac.chunk.js",
+    "main.js.map": "/zahlensysteme/static/js/main.60187dac.chunk.js.map",
+    "runtime-main.js": "/zahlensysteme/static/js/runtime-main.57a4b9dc.js",
+    "runtime-main.js.map": "/zahlensysteme/static/js/runtime-main.57a4b9dc.js.map",
     "static/css/2.ae9f1eb3.chunk.css": "/zahlensysteme/static/css/2.ae9f1eb3.chunk.css",
-    "static/js/2.47e57ac8.chunk.js": "/zahlensysteme/static/js/2.47e57ac8.chunk.js",
-    "static/js/2.47e57ac8.chunk.js.map": "/zahlensysteme/static/js/2.47e57ac8.chunk.js.map",
-    "static/js/3.296e52a9.chunk.js": "/zahlensysteme/static/js/3.296e52a9.chunk.js",
-    "static/js/3.296e52a9.chunk.js.map": "/zahlensysteme/static/js/3.296e52a9.chunk.js.map",
+    "static/js/2.d0d32442.chunk.js": "/zahlensysteme/static/js/2.d0d32442.chunk.js",
+    "static/js/2.d0d32442.chunk.js.map": "/zahlensysteme/static/js/2.d0d32442.chunk.js.map",
+    "static/js/3.3d34ae3a.chunk.js": "/zahlensysteme/static/js/3.3d34ae3a.chunk.js",
+    "static/js/3.3d34ae3a.chunk.js.map": "/zahlensysteme/static/js/3.3d34ae3a.chunk.js.map",
     "index.html": "/zahlensysteme/index.html",
     "static/css/2.ae9f1eb3.chunk.css.map": "/zahlensysteme/static/css/2.ae9f1eb3.chunk.css.map",
     "static/css/main.ae15e2ce.chunk.css.map": "/zahlensysteme/static/css/main.ae15e2ce.chunk.css.map",
-    "static/js/2.47e57ac8.chunk.js.LICENSE.txt": "/zahlensysteme/static/js/2.47e57ac8.chunk.js.LICENSE.txt"
+    "static/js/2.d0d32442.chunk.js.LICENSE.txt": "/zahlensysteme/static/js/2.d0d32442.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.3e79be48.js",
+    "static/js/runtime-main.57a4b9dc.js",
     "static/css/2.ae9f1eb3.chunk.css",
-    "static/js/2.47e57ac8.chunk.js",
+    "static/js/2.d0d32442.chunk.js",
     "static/css/main.ae15e2ce.chunk.css",
-    "static/js/main.8e480f34.chunk.js"
+    "static/js/main.60187dac.chunk.js"
   ]
 }
