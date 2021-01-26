@@ -32,7 +32,6 @@ class App extends React.Component {
   }
 
   changeConversionHandler = (event) => {
-    let input = this.state.input;
     this.setState({ conversionSettings: event.value, inputDisabled: false, inputConverted: 0, input: 0 });
     document.getElementById("number-input").value = 0;
 
@@ -148,10 +147,10 @@ class Explanation extends React.Component {
 
   chiffreValues = (number) => {
     let radixName = "Binär";
-    if (this.props.radix == 8) {
+    if (this.props.radix === 8) {
       radixName = "Oktal"
     }
-    if (this.props.radix == 16) {
+    if (this.props.radix === 16) {
       radixName = "Hexadezimal"
     }
     let res = [];
@@ -203,7 +202,7 @@ class Explanation extends React.Component {
             </div>
           );
         }
-        if (i == number.length - 1) {
+        if (i === number.length - 1) {
           res.push(
             <div>
               <div className="chiffre-placeholder" style={style}></div>
@@ -246,7 +245,7 @@ class Explanation extends React.Component {
             </div>
           );
         }
-        if (i == number.length - 1) {
+        if (i === number.length - 1) {
           res.push(
             <div>
               <div className="chiffre-placeholder" style={style}></div>
@@ -343,7 +342,7 @@ class Explanation extends React.Component {
 
   render() {
     console.log(this.props.number, this.props.radix);
-    if (this.props.number === "" || this.props.number == undefined) {
+    if (this.props.number === "" || this.props.number === undefined) {
       return (<Col md={12}></Col>);
 
     } else {
