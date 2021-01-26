@@ -10,7 +10,7 @@ import ReactTooltip from 'react-tooltip';
 import './App.css';
 
 const conversionOptions = [
-  { label: "Dezimal     → Dezimal", value: [10, 10]},
+  { label: "Dezimal     → Dezimal", value: [10, 10] },
   { label: "Dezimal     → Binär", value: [10, 2] },
   { label: "Binär       → Dezimal", value: [2, 10] },
   { label: "Dezimal     → Oktal", value: [10, 8] },
@@ -156,11 +156,15 @@ class Explanation extends React.Component {
     }
     let res = [];
     let result = 0;
+    let explainer = [];
     for (let i = 0; i < number.length; i++) {
       let multiplier = Math.pow(this.props.radix, number.length - 1 - i);
       let value = parseInt(number[i], 16);
       let style = { color: "black", borderColor: "black", fontWeight: "bold" };
       result = result + value * multiplier;
+      if((value*multiplier) > 0){
+        explainer.push(value*multiplier);
+      }
       if (value === 0) {
         style["color"] = "grey";
         style["borderColor"] = "lightgrey";
@@ -175,11 +179,16 @@ class Explanation extends React.Component {
             <div className="chiffre" style={style} data-tip data-for={"tooltip_" + i}><ScaleText maxFontSize={20} widthOnly={true} >{multiplier}
             </ScaleText>
               <ReactTooltip id={"tooltip_" + i} place="bottom" type="success" effect="solid">
-                <p>{multiplier}={this.props.radix}<sup>{number.length -i - 1}</sup></p>
+                <p>{multiplier} = {this.props.radix}<sup>{number.length - i - 1}</sup></p>
               </ReactTooltip>
             </div>
             <div className="sign">=</div>
-            <div className="chiffre" style={style}><ScaleText maxFontSize={20} widthOnly={true}>{multiplier * value}</ScaleText></div>
+            <div className="chiffre" style={style} data-tip data-for={"total_" + i}><ScaleText maxFontSize={20} widthOnly={true}>{multiplier * value}</ScaleText>
+              <ReactTooltip id={"total_" + i} place="bottom" type="success" effect="solid">
+                <p>{multiplier * value} = {value}*{multiplier}</p>
+              </ReactTooltip>
+            </div>
+
           </div>
         );
         if (number.length > 1 && i < number.length - 1) {
@@ -214,11 +223,16 @@ class Explanation extends React.Component {
             <div className="chiffre" style={style} data-tip data-for={"tooltip_" + i}><ScaleText maxFontSize={20} widthOnly={true} >{multiplier}
             </ScaleText>
               <ReactTooltip id={"tooltip_" + i} place="bottom" type="success" effect="solid">
-                <p>{multiplier}={this.props.radix}<sup>{number.length -i - 1}</sup></p>
+                <p>{multiplier} = {this.props.radix}<sup>{number.length - i - 1}</sup></p>
               </ReactTooltip>
             </div>
             <div className="sign">=</div>
-            <div className="chiffre" style={style}><ScaleText maxFontSize={20} widthOnly={true}>{multiplier * value}</ScaleText></div>
+            <div className="chiffre" style={style} data-tip data-for={"total_" + i}><ScaleText maxFontSize={20} widthOnly={true}>{multiplier * value}</ScaleText>
+              <ReactTooltip id={"total_" + i} place="bottom" type="success" effect="solid">
+                <p>{multiplier * value} = {value}*{multiplier}</p>
+              </ReactTooltip>
+            </div>
+
           </div>
         );
         if (number.length > 1 && i < number.length - 1) {
@@ -249,7 +263,7 @@ class Explanation extends React.Component {
       res.unshift(
         <div>
           <div className="row-name"><b>Ziffernwerte ({radixName})</b></div>
-          <div className="row-name" style={{ marginTop: "40px", color: "lightgrey"}}><b>Ziffernwerte (Dezimal)</b></div>
+          <div className="row-name" style={{ marginTop: "40px", color: "lightgrey" }}><b>Ziffernwerte (Dezimal)</b></div>
           <div className="row-name"></div>
           <div className="row-name"><b>Stellenwerte (Dezimal)</b></div>
           <div className="row-name"></div>
@@ -263,7 +277,11 @@ class Explanation extends React.Component {
           <div className="chiffre-placeholder"></div>
           <div className="chiffre-placeholder"></div>
           <div className="chiffre-placeholder"></div>
-          <div className="chiffre-white" style={{ width: "150px" }}><ScaleText maxFontSize={20} widthOnly={true}><b>{result}</b></ScaleText></div>
+          <div className="chiffre-white" style={{ width: "150px" }} data-tip data-for={"explanation"}><ScaleText maxFontSize={20} widthOnly={true}><b>{result}</b></ScaleText>
+            <ReactTooltip id={"explanation"} place="bottom" type="success" effect="solid">
+              <p>{result} = {explainer.join(" + ")}</p>
+            </ReactTooltip>
+          </div>
         </div>
       )
     } else {
@@ -282,7 +300,11 @@ class Explanation extends React.Component {
           <div className="chiffre-placeholder"></div>
           <div className="chiffre-placeholder"></div>
           <div className="chiffre-placeholder"></div>
-          <div className="chiffre-white" style={{ width: "150px" }}><ScaleText maxFontSize={20} widthOnly={true}><b>{result}</b></ScaleText></div>
+          <div className="chiffre-white" style={{ width: "150px" }} data-tip data-for={"explanation"}><ScaleText maxFontSize={20} widthOnly={true}><b>{result}</b></ScaleText>
+            <ReactTooltip id={"explanation"} place="bottom" type="success" effect="solid">
+              <p>{result} = {explainer.join(" + ")}</p>
+            </ReactTooltip>
+          </div>
         </div>
       )
     }
@@ -335,7 +357,13 @@ class Explanation extends React.Component {
           <Row>
             <Col md={1}></Col>
             <Col md={11} className="text-center margin-bottom">
-              Umrechnung von <b>{this.props.number}<sub>{this.props.radix}</sub></b> in <b>{this.convert(this.props.number)}<sub>10</sub></b>
+              <div data-tip data-for={"radixe"}>
+                <p >Umrechnung von <b>{this.props.number}<sub>{this.props.radix}</sub></b> in <b>{this.convert(this.props.number)}<sub>10</sub></b></p>
+                <ReactTooltip id={"radixe"} place="bottom" type="success" effect="solid">
+              <p>Die tiefergestellte <b><sub>{this.props.radix}</sub></b> bedeutet, die Zahl ist im <b>{this.props.radix}er System</b></p>
+              <p>Die tiefergestellte <b><sub>10</sub> </b> bedeutet, die Zahl ist im <b>10er System</b></p>
+            </ReactTooltip>
+                </div>
             </Col>
           </Row>
           <Row>
